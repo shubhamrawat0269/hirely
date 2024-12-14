@@ -1,5 +1,5 @@
 function App() {
-  return <div className="underline">App</div>;
+  return <div className="underline">App</div>
 }
 
-export default App;
+export default App
