@@ -27,8 +27,8 @@
 # Step by Step Approach to build Hirely  
 Note : [ Use ✅ when task completed & ❌ if there is any blocker ]
 
-[] 1. Backend Setup
-[] 2. Connect with MongoDB Database
+[✅] 1. Backend Setup
+[✅] 2. Connect with MongoDB Database
 [] 3. Create All Models
 [] 4. Create User Controller, Middleware, Route
 [] 5. API Testing
