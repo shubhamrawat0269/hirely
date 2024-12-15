@@ -31,14 +31,14 @@ i. Initial Setup
     2. Set up a React project via Vite. ✅
     3. Setup basic Project for FDT initially. ✅
     4. Install dep : FDT (react-router-dom, axios, zustand) , Backend (express,mongoose,cors,dotenv, jsonwebtoken, bcrypt). ✅
-    5. Create a MongoDB Atlas database.
+    5. Create a MongoDB Atlas Account. ✅
 
 ii. Authentication
     A. Backend
         1. Create a User schema with fields for email, password, role, etc.
         2. Implement routes:
-        POST /api/auth/register: Register a new user (Job Seeker or Employer).
-        POST /api/auth/login: Authenticate user and return JWT.
+            i. POST /api/auth/register: Register a new user (Job Seeker or Employer).
+            ii. POST /api/auth/login: Authenticate user and return JWT.
         3. Hash passwords using bcrypt.
         4. Protect routes using JWT middleware.
 
