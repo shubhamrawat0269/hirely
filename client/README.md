@@ -39,7 +39,7 @@ Note : [ Use ✅ when task completed & ❌ if there is any blocker, ⌛ if in pr
 [] 10. Building Navbar Page
 [] 11. Building Login/Signup Page
 [] 12. Setup Multer for File Upload
-[] 13. Setup Zustand for State Management
+[✅] 13. Setup Zustand for State Management
 [] 14. Building Home Pages
 [] 15. Building Jobs Page
 [] 16. Building Browse Page
