@@ -9,6 +9,7 @@ const connectToDb = require('./db/connectToDb')
 const jobRoutes = require('./routes/job.route')
 const userRoutes = require('./routes/user.route')
 const companyRoutes = require('./routes/company.route')
+const applicationRoutes = require('./routes/application.route')
 
 app.use(cors())
 app.use(express.json())
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/jobs', jobRoutes)
 app.use('/api/v1/company', companyRoutes)
+app.use('/api/v1/application', applicationRoutes)
 
 connectToDb()
 
