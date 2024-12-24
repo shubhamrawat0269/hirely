@@ -130,18 +130,10 @@ const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
     const file = req.file;
-
-    /* Check whether any field is empty or not */
-    if (!fullname || !email || !phoneNumber || !bio || !skills) {
-      return res.status(400).json({
-        message: "Something is missing",
-        success: false,
-      });
-    }
-
     /* CLOUDINARY */
-    
-    const skillsList = skills.split(",");
+
+    let skillsList;
+    if (skills) skillsList = skills.split(",");
     const userId = req.id;
     let user = await UserModel.findById(userId);
 
@@ -153,12 +145,11 @@ const updateProfile = async (req, res) => {
     }
 
     /* Updating User details */
-
-    user.fullname = fullname;
-    user.email = email;
-    user.phoneNumber = phoneNumber;
-    user.profile.bio = bio;
-    user.profile.skills = skillsList;
+    if (fullname) user.fullname = fullname;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (bio) user.profile.bio = bio;
+    if (skills) user.profile.skills = skillsList;
 
     await user.save();
 

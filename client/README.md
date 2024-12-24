@@ -30,7 +30,7 @@ Note : [ Use ✅ when task completed & ❌ if there is any blocker ]
 [✅] 1. Backend Setup
 [✅] 2. Connect with MongoDB Database
 [✅] 3. Create All Models
-[] 4. Create User Controller, Middleware, Route
+[✅] 4. Create User Controller, Middleware, Route
 [] 5. API Testing
 [] 6. Create Company Controller & API Routes
 [] 7. Create Job Controller, API Routes
