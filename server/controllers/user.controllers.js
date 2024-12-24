@@ -140,11 +140,10 @@ const updateProfile = async (req, res) => {
     }
 
     /* CLOUDINARY */
-
+    
     const skillsList = skills.split(",");
-    // const userId = req.id;
-
-    let user = await UserModel.findOne({email});
+    const userId = req.id;
+    let user = await UserModel.findById(userId);
 
     if (!user) {
       return res.status(400).json({
