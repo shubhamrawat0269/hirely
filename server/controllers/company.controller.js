@@ -1,5 +1,5 @@
 const CompanyModal = require('../models/company.model')
-const { createResponse } = require('../utils/common.util.ts')
+const { createResponse } = require('../utils/common.util.js')
 
 const registerCompany = async (req, res) => {
   try {
