@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const jobSchema = require("../schema/job.schema.js");
+const mongoose = require('mongoose')
+const jobSchema = require('../schema/job.shema')
 
-const JobModal = mongoose.model("Job", jobSchema);
+const JobModal = mongoose.model('Job', jobSchema)
 
-module.exports = JobModal;
+module.exports = JobModal
