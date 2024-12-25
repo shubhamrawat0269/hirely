@@ -25,21 +25,21 @@
 - Render (Backend Deployment)
 
 # Step by Step Approach to build Hirely  
-Note : [ Use ✅ when task completed & ❌ if there is any blocker ]
+Note : [ Use ✅ when task completed & ❌ if there is any blocker, ⌛ if in progress, ]
 
 [✅] 1. Backend Setup
 [✅] 2. Connect with MongoDB Database
 [✅] 3. Create All Models
 [✅] 4. Create User Controller, Middleware, Route
 [✅] 5. API Testing
-[] 6. Create Company Controller & API Routes
-[] 7. Create Job Controller, API Routes
-[] 8. Create Application Controller, API Routes
-[] 9. Frontend Setup (React vite, shadcnui)
+[✅] 6. Create Company Controller & API Routes
+[✅] 7. Create Job Controller, API Routes
+[✅] 8. Create Application Controller, API Routes
+[✅] 9. Frontend Setup (React vite, shadcn ui)
 [] 10. Building Navbar Page
-[] 11. Building Login/Signup Page
+[✅] 11. Building Login/Signup Page
 [] 12. Setup Multer for File Upload
-[] 13. Setup Redux Toolkit for State Management
+[✅] 13. Setup Zustand for State Management
 [] 14. Building Home Pages
 [] 15. Building Jobs Page
 [] 16. Building Browse Page
