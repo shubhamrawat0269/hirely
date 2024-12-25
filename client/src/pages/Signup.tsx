@@ -2,12 +2,12 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff } from 'lucide-react'
 
-import useFormStore from '@/store/store'
+import { useSignupFormStore } from '@/store/store'
 import { FormField, ActionButton } from '@/components/organisms'
 import { Label, RadioGroup, RadioGroupItem, Separator } from '@/components'
 
 const Signup: React.FC = () => {
-  const { role, formData, handleInputChange, showPassword, setShowPassword } = useFormStore()
+  const { role, formData, handleInputChange, showPassword, setShowPassword } = useSignupFormStore()
 
   return (
     <div className="min-h-screen bg-gradient-to-br flex items-center justify-center p-4">

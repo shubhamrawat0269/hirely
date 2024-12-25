@@ -1,15 +1,5 @@
-// import useStore from './store/store'
-
-import { Login, Signup } from './pages'
-
 function App() {
-  // const { bears, increasePopulation } = useStore((state) => state)
-  return (
-    <div>
-      {/* <Login /> */}
-      <Signup />
-    </div>
-  )
+  return <div>App</div>
 }
 
 export default App
