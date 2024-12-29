@@ -1,7 +1,7 @@
 import { HireLogo, MenuItem, AuthButtons, UserAvatar } from '@/components/organisms'
 
 const Navbar = () => {
-  const user = true
+  const user = false
 
   return (
     <div className="bg-white">

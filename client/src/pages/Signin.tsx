@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
-import { useSigninFormStore } from '@/store/store'
+import { useSigninFormStore } from '@/store/auth.store'
 
 import { FormField, ActionButton } from '@/components/organisms'
 import { Button, Checkbox, Label, RadioGroup, RadioGroupItem, Separator } from '@/components'
 import { Eye, EyeOff, Github, Mail } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const Signin = () => {
   const { role, formData, handleInputChange, showPassword, setShowPassword } = useSigninFormStore()
@@ -84,9 +85,9 @@ const Signin = () => {
             <div className="text-center">
               <p>
                 Don't have an account?{' '}
-                <a href="#" className="text-cyan-700 font-bold">
+                <Link to={`/signup`} className="text-cyan-700 font-bold">
                   Sign up
-                </a>
+                </Link>
               </p>
             </div>
           </form>

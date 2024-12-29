@@ -2,15 +2,30 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff } from 'lucide-react'
 
-import { useSignupFormStore } from '@/store/store'
+import { useSignupFormStore } from '@/store/auth.store'
 import { FormField, ActionButton } from '@/components/organisms'
-import { Label, RadioGroup, RadioGroupItem, Separator } from '@/components'
+import { Label, RadioGroup, RadioGroupItem, Separator, Input } from '@/components'
+import { Link } from 'react-router-dom'
+import { toast } from 'sonner'
 
 const Signup: React.FC = () => {
-  const { role, formData, handleInputChange, showPassword, setShowPassword } = useSignupFormStore()
+  const { role, formData, handleInputChange, showPassword, setShowPassword, handleFileChange } = useSignupFormStore()
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const { fullname, email, phoneNumber, password, role, file } = formData
+
+    try {
+      console.log({ fullname, email, phoneNumber, password, role, file })
+
+      toast.success('Register Successfull')
+    } catch (error) {
+      console.log('FORM SIGNUP Error ', error)
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br flex items-center justify-center p-4">
+    <div className="min-h-screen bg-teal-400 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -23,7 +38,7 @@ const Signup: React.FC = () => {
             <p className="text-muted-foreground">Enter your credentials to create account</p>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <FormField
               label="Full Name"
               id="fullname"
@@ -63,6 +78,17 @@ const Signup: React.FC = () => {
               onChange={(e) => handleInputChange(e)}
               placeholder="Enter your phone number"
             />
+            <div className="flex items-center gap-2 space-y-2">
+              <Label>Profile</Label>
+              <Input
+                accept="image/*"
+                id="file"
+                type="file"
+                value={formData.file}
+                onChange={(e) => handleFileChange(e)}
+                className="cursor-pointer"
+              />
+            </div>
             <div className="flex gap-2 items-center space-y-2 space-x-2">
               <Label className="pt-1.5 text-sm">Role</Label>
               <RadioGroup defaultValue="student" className="flex space-y-0 space-x-0">
@@ -76,14 +102,14 @@ const Signup: React.FC = () => {
                 })}
               </RadioGroup>
             </div>
-            <ActionButton text="Sign Up" onClick={() => alert('Button clicked')} />
+            <ActionButton text="Sign Up" className="bg-teal-600 hover:bg-teal-700" />
             <Separator />
             <div className="text-center">
               <p>
                 Already have account?{' '}
-                <a href="#" className="text-cyan-700 font-bold">
+                <Link to={`/signin`} className="text-cyan-700 font-bold">
                   Sign in
-                </a>
+                </Link>
               </p>
             </div>
           </form>
