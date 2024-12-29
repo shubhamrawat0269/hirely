@@ -36,7 +36,7 @@ Note : [ Use ✅ when task completed & ❌ if there is any blocker, ⌛ if in pr
 [✅] 7. Create Job Controller, API Routes
 [✅] 8. Create Application Controller, API Routes
 [✅] 9. Frontend Setup (React vite, shadcn ui)
-[] 10. Building Navbar Page
+[✅] 10. Building Navbar Page
 [✅] 11. Building Login/Signup Page
 [] 12. Setup Multer for File Upload
 [✅] 13. Setup Zustand for State Management
