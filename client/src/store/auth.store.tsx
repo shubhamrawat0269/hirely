@@ -8,6 +8,7 @@ interface SignupFormData {
   file: string
   password: string
   phoneNumber: string
+  role: string
 }
 
 interface SigninFormData {
@@ -39,6 +40,7 @@ const useSignupFormStore = create<SignupFormStore>((set) => ({
     fullname: '',
     email: '',
     file: '',
+    role: 'student',
     password: '',
     phoneNumber: '',
   },
@@ -53,9 +55,10 @@ const useSignupFormStore = create<SignupFormStore>((set) => ({
   },
   handleFileChange: (e) => {
     const { id, files } = e.target
-    set((state) => ({
-      formData: { ...state.formData, [id]: files?.[0] },
-    }))
+    console.log({ id, files })
+    // set((state) => ({
+    //   formData: { ...state.formxData, [id]: files?.[0] },
+    // }))
   },
   setShowPassword: (show) => {
     set(() => ({
@@ -68,6 +71,7 @@ const useSigninFormStore = create<SigninFormStore>((set) => ({
   /* ``````````` State below ```````````` */
   formData: {
     email: '',
+    role: '',
     password: '',
   },
   showPassword: false,

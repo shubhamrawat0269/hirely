@@ -4,19 +4,19 @@ import { Eye, EyeOff } from 'lucide-react'
 
 import { useSignupFormStore } from '@/store/auth.store'
 import { FormField, ActionButton } from '@/components/organisms'
-import { Label, RadioGroup, RadioGroupItem, Separator, Input } from '@/components'
+import { Label, RadioGroup, Separator, Input } from '@/components'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 
 const Signup: React.FC = () => {
-  const { role, formData, handleInputChange, showPassword, setShowPassword, handleFileChange } = useSignupFormStore()
+  const { formData, handleInputChange, showPassword, setShowPassword, handleFileChange } = useSignupFormStore()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { fullname, email, phoneNumber, password, role, file } = formData
+    const { fullname, email, phoneNumber, password, file, role } = formData
 
     try {
-      console.log({ fullname, email, phoneNumber, password, role, file })
+      console.log({ fullname, email, phoneNumber, password, file, role })
 
       toast.success('Register Successfull')
     } catch (error) {
@@ -91,15 +91,31 @@ const Signup: React.FC = () => {
             </div>
             <div className="flex gap-2 items-center space-y-2 space-x-2">
               <Label className="pt-1.5 text-sm">Role</Label>
-              <RadioGroup defaultValue="student" className="flex space-y-0 space-x-0">
-                {role.map((role) => {
-                  return (
-                    <div className="flex items-center space-x-2" key={role}>
-                      <RadioGroupItem value={role} id={role} />
-                      <Label htmlFor={role}>{role}</Label>
-                    </div>
-                  )
-                })}
+              <RadioGroup className="flex space-y-0 space-x-0">
+                <div className="flex items-center space-x-2">
+                  <Input
+                    id="role"
+                    type="radio"
+                    name="roleType"
+                    value={'student'}
+                    checked={formData.role === 'student'}
+                    onChange={(e) => handleInputChange(e)}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="student">student</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Input
+                    id="role"
+                    type="radio"
+                    name="roleType"
+                    value={'recruiter'}
+                    checked={formData.role === 'recruiter'}
+                    onChange={(e) => handleInputChange(e)}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="student">recruiter</Label>
+                </div>
               </RadioGroup>
             </div>
             <ActionButton text="Sign Up" className="bg-teal-600 hover:bg-teal-700" />
