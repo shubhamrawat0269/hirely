@@ -5,22 +5,31 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useSignupFormStore } from '@/store/auth.store'
 import { FormField, ActionButton } from '@/components/organisms'
 import { Label, RadioGroup, Separator, Input } from '@/components'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import axios from 'axios'
+import { USER_API_ENDPOINT } from '@/utils/Namespaces/auth.namespace'
 
 const Signup: React.FC = () => {
+  const navigate = useNavigate()
   const { formData, handleInputChange, showPassword, setShowPassword, handleFileChange } = useSignupFormStore()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { fullname, email, phoneNumber, password, file, role } = formData
+    const payload = { fullname, email, phoneNumber, password, file, role }
 
     try {
-      console.log({ fullname, email, phoneNumber, password, file, role })
+      const response = await axios.post(`${USER_API_ENDPOINT}/register`, payload)
+      // console.log(response)
 
-      toast.success('Register Successfull')
-    } catch (error) {
+      if (response.data.success) {
+        navigate('/')
+        toast.success(response.data.message || 'Account Created Successfully')
+      }
+    } catch (error : any) {
       console.log('FORM SIGNUP Error ', error)
+      toast.error(error.response.data.message)
     }
   }
 
@@ -84,7 +93,6 @@ const Signup: React.FC = () => {
                 accept="image/*"
                 id="file"
                 type="file"
-                value={formData.file}
                 onChange={(e) => handleFileChange(e)}
                 className="cursor-pointer"
               />

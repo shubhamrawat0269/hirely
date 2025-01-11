@@ -6,7 +6,6 @@ const { createResponse } = require('../utils/common.util.js')
 const registerUser = async (req, res) => {
   try {
     const { fullname, email, password, phoneNumber, role } = req.body
-
     /* Check whether any field is empty or not */
     if (!fullname || !email || !password || !phoneNumber || !role) {
       const response = createResponse(400, 'Something is missing.', false)

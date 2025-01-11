@@ -14,6 +14,7 @@ interface SignupFormData {
 interface SigninFormData {
   email: string
   password: string
+  role: string
 }
 
 // Define the store with actions
@@ -56,9 +57,9 @@ const useSignupFormStore = create<SignupFormStore>((set) => ({
   handleFileChange: (e) => {
     const { id, files } = e.target
     console.log({ id, files })
-    // set((state) => ({
-    //   formData: { ...state.formxData, [id]: files?.[0] },
-    // }))
+    set((state) => ({
+      formData: { ...state.formData, [id]: files?.[0] },
+    }))
   },
   setShowPassword: (show) => {
     set(() => ({
