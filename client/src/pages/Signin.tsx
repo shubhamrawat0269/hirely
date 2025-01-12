@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
 import { useSigninFormStore } from '@/store/auth.store'
 
-import { FormField } from '@/components/organisms'
+import { ActionButton, FormField } from '@/components/organisms'
 import { Button, Checkbox, Label, RadioGroup, Input, Separator } from '@/components'
-import { Eye, EyeOff, Github, Mail } from 'lucide-react'
+import { Eye, EyeOff, Github, Loader2, Mail } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'sonner'
@@ -11,7 +11,8 @@ import { USER_API_ENDPOINT } from '@/utils/Namespaces/auth.namespace'
 
 const Signin = () => {
   const navigate = useNavigate()
-  const { formData, handleInputChange, showPassword, setShowPassword } = useSigninFormStore()
+  const { loader, formData, handleInputChange, showPassword, setShowPassword, setLoader, setUserData } =
+    useSigninFormStore()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -19,16 +20,20 @@ const Signin = () => {
     const payload = { email, password, role }
 
     try {
+      setLoader(true)
       const response = await axios.post(`${USER_API_ENDPOINT}/login`, payload)
       // console.log(response)
 
       if (response.data.success) {
         navigate('/')
+        setUserData(response.data.user)
         toast.success(response.data.message || 'Login Successfully')
       }
     } catch (error: any) {
       console.log('FORM SIGNIn Error ', error)
       toast.error(error.response.data.message)
+    } finally {
+      setLoader(false)
     }
   }
 
@@ -109,7 +114,14 @@ const Signin = () => {
                 Forgot password?
               </a>
             </div>
-            <Button type="submit">Sign In</Button>
+            {loader ? (
+              <Button className="w-full">
+                <Loader2 className="animate-spin" size={20} />
+                Loading
+              </Button>
+            ) : (
+              <ActionButton text="Sign in" />
+            )}
             <Separator />
             <div className="flex justify-center space-x-2">
               <Button className="w-full bg-transparent text-black border-2 border-gray-100 hover:bg-transparent">

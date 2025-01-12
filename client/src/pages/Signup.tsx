@@ -1,10 +1,10 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
 
 import { useSignupFormStore } from '@/store/auth.store'
 import { FormField, ActionButton } from '@/components/organisms'
-import { Label, RadioGroup, Separator, Input } from '@/components'
+import { Label, RadioGroup, Separator, Input, Button } from '@/components'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import axios from 'axios'
@@ -12,7 +12,8 @@ import { USER_API_ENDPOINT } from '@/utils/Namespaces/auth.namespace'
 
 const Signup: React.FC = () => {
   const navigate = useNavigate()
-  const { formData, handleInputChange, showPassword, setShowPassword, handleFileChange } = useSignupFormStore()
+  const { loader, formData, handleInputChange, showPassword, setShowPassword, handleFileChange, setLoader } =
+    useSignupFormStore()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -20,6 +21,7 @@ const Signup: React.FC = () => {
     const payload = { fullname, email, phoneNumber, password, file, role }
 
     try {
+      setLoader(true)
       const response = await axios.post(`${USER_API_ENDPOINT}/register`, payload)
       // console.log(response)
 
@@ -27,9 +29,11 @@ const Signup: React.FC = () => {
         navigate('/')
         toast.success(response.data.message || 'Account Created Successfully')
       }
-    } catch (error : any) {
+    } catch (error: any) {
       console.log('FORM SIGNUP Error ', error)
       toast.error(error.response.data.message)
+    } finally {
+      setLoader(false)
     }
   }
 
@@ -126,7 +130,14 @@ const Signup: React.FC = () => {
                 </div>
               </RadioGroup>
             </div>
-            <ActionButton text="Sign Up" className="bg-teal-600 hover:bg-teal-700" />
+            {loader ? (
+              <Button className="w-full">
+                <Loader2 className="animate-spin" size={20} />
+                Loading
+              </Button>
+            ) : (
+              <ActionButton text="Sign Up" className="bg-teal-600 hover:bg-teal-700" />
+            )}
             <Separator />
             <div className="text-center">
               <p>

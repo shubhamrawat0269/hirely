@@ -21,6 +21,7 @@ interface SigninFormData {
 interface SignupFormStore {
   formData: SignupFormData
   role: string[]
+  loader: boolean
   showPassword: boolean
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -31,9 +32,13 @@ interface SignupFormStore {
 interface SigninFormStore {
   formData: SigninFormData
   role: string[]
+  loader: boolean
   showPassword: boolean
+  userData: any
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   setShowPassword: (show: boolean) => void
+  setLoader: (show: boolean) => void
+  setUserData: (show: boolean) => void
 }
 
 const useSignupFormStore = create<SignupFormStore>((set) => ({
@@ -45,6 +50,7 @@ const useSignupFormStore = create<SignupFormStore>((set) => ({
     password: '',
     phoneNumber: '',
   },
+  loader: false,
   showPassword: false,
   role: ['student', 'recruiter'],
 
@@ -66,6 +72,11 @@ const useSignupFormStore = create<SignupFormStore>((set) => ({
       showPassword: show,
     }))
   },
+  setLoader: (show) => {
+    set(() => ({
+      loader: show,
+    }))
+  },
 }))
 
 const useSigninFormStore = create<SigninFormStore>((set) => ({
@@ -75,6 +86,8 @@ const useSigninFormStore = create<SigninFormStore>((set) => ({
     role: '',
     password: '',
   },
+  userData: null,
+  loader: false,
   showPassword: false,
   role: ['student', 'recruiter'],
 
@@ -89,6 +102,16 @@ const useSigninFormStore = create<SigninFormStore>((set) => ({
   setShowPassword: (show) => {
     set(() => ({
       showPassword: show,
+    }))
+  },
+  setLoader: (show) => {
+    set(() => ({
+      loader: show,
+    }))
+  },
+  setUserData: (payload) => {
+    set(() => ({
+      userData: payload,
     }))
   },
 }))
