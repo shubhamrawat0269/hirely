@@ -38,7 +38,7 @@ Note : [ Use ✅ when task completed & ❌ if there is any blocker, ⌛ if in pr
 [✅] 9. Frontend Setup (React vite, shadcn ui)
 [✅] 10. Building Navbar Page
 [✅] 11. Building Login/Signup Page
-[] 12. Setup Multer for File Upload
+[✅] 12. Setup Multer for File Upload
 [✅] 13. Setup Zustand for State Management
 [] 14. Building Home Pages
 [] 15. Building Jobs Page
@@ -61,3 +61,4 @@ Note : [ Use ✅ when task completed & ❌ if there is any blocker, ⌛ if in pr
 [] 32. Adding Framer-motion
 [] 33. Protecting Our Routes
 [] 34. End Game
+[] 35. Optimization in the end.
