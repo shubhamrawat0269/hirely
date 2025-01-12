@@ -1,11 +1,10 @@
-import { Navbar } from '@/components/organisms'
 import { createBrowserRouter } from 'react-router-dom'
-import { Signin, Signup } from './pages'
+import { Signin, Signup, Home } from './pages'
 
 const appRoutes = createBrowserRouter([
   {
     path: '/',
-    element: <Navbar />,
+    element: <Home />,
   },
   {
     path: '/signin',

@@ -5,5 +5,21 @@ import ActionButton from './ActionButton'
 import AuthButtons from './AuthButtons'
 import MenuItem from './MenuItem'
 import UserAvatar from './UserAvatar'
+import HeroSection from './HeroSection'
+import CategoryCarousel from './CategoryCarousel'
+import LatestJobs from './LatestJobs'
+import Footer from './Footer'
 
-export { FormField, ActionButton, Navbar, HireLogo, AuthButtons,MenuItem,UserAvatar }
+export {
+  LatestJobs,
+  FormField,
+  ActionButton,
+  Navbar,
+  HireLogo,
+  AuthButtons,
+  MenuItem,
+  UserAvatar,
+  HeroSection,
+  CategoryCarousel,
+  Footer,
+}
