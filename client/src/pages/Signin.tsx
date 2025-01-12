@@ -1,12 +1,36 @@
 import { motion } from 'framer-motion'
-import { useSigninFormStore } from '@/store/store'
+import { useSigninFormStore } from '@/store/auth.store'
 
-import { FormField, ActionButton } from '@/components/organisms'
-import { Button, Checkbox, Label, RadioGroup, RadioGroupItem, Separator } from '@/components'
+import { FormField } from '@/components/organisms'
+import { Button, Checkbox, Label, RadioGroup, Input, Separator } from '@/components'
 import { Eye, EyeOff, Github, Mail } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'sonner'
+import { USER_API_ENDPOINT } from '@/utils/Namespaces/auth.namespace'
 
 const Signin = () => {
-  const { role, formData, handleInputChange, showPassword, setShowPassword } = useSigninFormStore()
+  const navigate = useNavigate()
+  const { formData, handleInputChange, showPassword, setShowPassword } = useSigninFormStore()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const { email, password, role } = formData
+    const payload = { email, password, role }
+
+    try {
+      const response = await axios.post(`${USER_API_ENDPOINT}/login`, payload)
+      // console.log(response)
+
+      if (response.data.success) {
+        navigate('/')
+        toast.success(response.data.message || 'Login Successfully')
+      }
+    } catch (error: any) {
+      console.log('FORM SIGNIn Error ', error)
+      toast.error(error.response.data.message)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br flex items-center justify-center p-4">
@@ -22,7 +46,7 @@ const Signin = () => {
             <p className="text-muted-foreground">Enter your credentials to access your account</p>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <FormField
               label="Email"
               id="email"
@@ -49,15 +73,31 @@ const Signin = () => {
             </FormField>
             <div className="flex gap-2 items-center space-y-2 space-x-2">
               <Label className="pt-1.5 text-sm">Role</Label>
-              <RadioGroup defaultValue="student" className="flex space-y-0 space-x-0">
-                {role.map((role) => {
-                  return (
-                    <div className="flex items-center space-x-2" key="role">
-                      <RadioGroupItem value={role} id={role} />
-                      <Label htmlFor={role}>{role}</Label>
-                    </div>
-                  )
-                })}
+              <RadioGroup className="flex space-y-0 space-x-0">
+                <div className="flex items-center space-x-2">
+                  <Input
+                    id="role"
+                    type="radio"
+                    name="roleType"
+                    value={'student'}
+                    checked={formData.role === 'student'}
+                    onChange={(e) => handleInputChange(e)}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="student">student</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Input
+                    id="role"
+                    type="radio"
+                    name="roleType"
+                    value={'recruiter'}
+                    checked={formData.role === 'recruiter'}
+                    onChange={(e) => handleInputChange(e)}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="student">recruiter</Label>
+                </div>
               </RadioGroup>
             </div>
             <div className="flex items-center justify-between">
@@ -69,7 +109,7 @@ const Signin = () => {
                 Forgot password?
               </a>
             </div>
-            <ActionButton text="Sign In" onClick={() => alert('Button clicked')} />
+            <Button type="submit">Sign In</Button>
             <Separator />
             <div className="flex justify-center space-x-2">
               <Button className="w-full bg-transparent text-black border-2 border-gray-100 hover:bg-transparent">
@@ -84,9 +124,9 @@ const Signin = () => {
             <div className="text-center">
               <p>
                 Don't have an account?{' '}
-                <a href="#" className="text-cyan-700 font-bold">
+                <Link to={`/signup`} className="text-cyan-700 font-bold">
                   Sign up
-                </a>
+                </Link>
               </p>
             </div>
           </form>

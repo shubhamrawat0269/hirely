@@ -2,15 +2,39 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff } from 'lucide-react'
 
-import { useSignupFormStore } from '@/store/store'
+import { useSignupFormStore } from '@/store/auth.store'
 import { FormField, ActionButton } from '@/components/organisms'
-import { Label, RadioGroup, RadioGroupItem, Separator } from '@/components'
+import { Label, RadioGroup, Separator, Input } from '@/components'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'sonner'
+import axios from 'axios'
+import { USER_API_ENDPOINT } from '@/utils/Namespaces/auth.namespace'
 
 const Signup: React.FC = () => {
-  const { role, formData, handleInputChange, showPassword, setShowPassword } = useSignupFormStore()
+  const navigate = useNavigate()
+  const { formData, handleInputChange, showPassword, setShowPassword, handleFileChange } = useSignupFormStore()
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const { fullname, email, phoneNumber, password, file, role } = formData
+    const payload = { fullname, email, phoneNumber, password, file, role }
+
+    try {
+      const response = await axios.post(`${USER_API_ENDPOINT}/register`, payload)
+      // console.log(response)
+
+      if (response.data.success) {
+        navigate('/')
+        toast.success(response.data.message || 'Account Created Successfully')
+      }
+    } catch (error : any) {
+      console.log('FORM SIGNUP Error ', error)
+      toast.error(error.response.data.message)
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br flex items-center justify-center p-4">
+    <div className="min-h-screen bg-teal-400 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -23,7 +47,7 @@ const Signup: React.FC = () => {
             <p className="text-muted-foreground">Enter your credentials to create account</p>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <FormField
               label="Full Name"
               id="fullname"
@@ -63,27 +87,53 @@ const Signup: React.FC = () => {
               onChange={(e) => handleInputChange(e)}
               placeholder="Enter your phone number"
             />
+            <div className="flex items-center gap-2 space-y-2">
+              <Label>Profile</Label>
+              <Input
+                accept="image/*"
+                id="file"
+                type="file"
+                onChange={(e) => handleFileChange(e)}
+                className="cursor-pointer"
+              />
+            </div>
             <div className="flex gap-2 items-center space-y-2 space-x-2">
               <Label className="pt-1.5 text-sm">Role</Label>
-              <RadioGroup defaultValue="student" className="flex space-y-0 space-x-0">
-                {role.map((role) => {
-                  return (
-                    <div className="flex items-center space-x-2" key={role}>
-                      <RadioGroupItem value={role} id={role} />
-                      <Label htmlFor={role}>{role}</Label>
-                    </div>
-                  )
-                })}
+              <RadioGroup className="flex space-y-0 space-x-0">
+                <div className="flex items-center space-x-2">
+                  <Input
+                    id="role"
+                    type="radio"
+                    name="roleType"
+                    value={'student'}
+                    checked={formData.role === 'student'}
+                    onChange={(e) => handleInputChange(e)}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="student">student</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Input
+                    id="role"
+                    type="radio"
+                    name="roleType"
+                    value={'recruiter'}
+                    checked={formData.role === 'recruiter'}
+                    onChange={(e) => handleInputChange(e)}
+                    className="cursor-pointer"
+                  />
+                  <Label htmlFor="student">recruiter</Label>
+                </div>
               </RadioGroup>
             </div>
-            <ActionButton text="Sign Up" onClick={() => alert('Button clicked')} />
+            <ActionButton text="Sign Up" className="bg-teal-600 hover:bg-teal-700" />
             <Separator />
             <div className="text-center">
               <p>
                 Already have account?{' '}
-                <a href="#" className="text-cyan-700 font-bold">
+                <Link to={`/signin`} className="text-cyan-700 font-bold">
                   Sign in
-                </a>
+                </Link>
               </p>
             </div>
           </form>

@@ -1,11 +1,8 @@
-import { Navbar } from '@/components/organisms'
+import appRoutes from './Routes'
+import { RouterProvider } from 'react-router-dom'
 
 function App() {
-  return (
-    <div>
-      <Navbar />
-    </div>
-  )
+  return <RouterProvider router={appRoutes} />
 }
 
 export default App

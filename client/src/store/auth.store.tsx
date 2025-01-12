@@ -5,13 +5,16 @@ import { create } from 'zustand'
 interface SignupFormData {
   fullname: string
   email: string
+  file: string
   password: string
   phoneNumber: string
+  role: string
 }
 
 interface SigninFormData {
   email: string
   password: string
+  role: string
 }
 
 // Define the store with actions
@@ -20,6 +23,7 @@ interface SignupFormStore {
   role: string[]
   showPassword: boolean
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   setShowPassword: (show: boolean) => void
 }
 
@@ -36,6 +40,8 @@ const useSignupFormStore = create<SignupFormStore>((set) => ({
   formData: {
     fullname: '',
     email: '',
+    file: '',
+    role: 'student',
     password: '',
     phoneNumber: '',
   },
@@ -48,6 +54,13 @@ const useSignupFormStore = create<SignupFormStore>((set) => ({
       formData: { ...state.formData, [id]: value },
     }))
   },
+  handleFileChange: (e) => {
+    const { id, files } = e.target
+    console.log({ id, files })
+    set((state) => ({
+      formData: { ...state.formData, [id]: files?.[0] },
+    }))
+  },
   setShowPassword: (show) => {
     set(() => ({
       showPassword: show,
@@ -56,12 +69,16 @@ const useSignupFormStore = create<SignupFormStore>((set) => ({
 }))
 
 const useSigninFormStore = create<SigninFormStore>((set) => ({
+  /* ``````````` State below ```````````` */
   formData: {
     email: '',
-    password: ''
+    role: '',
+    password: '',
   },
   showPassword: false,
   role: ['student', 'recruiter'],
+
+  /* ``````````` Actions below ```````````` */
 
   handleInputChange: (e) => {
     const { id, value } = e.target
