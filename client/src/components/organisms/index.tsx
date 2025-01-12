@@ -9,6 +9,8 @@ import HeroSection from './HeroSection'
 import CategoryCarousel from './CategoryCarousel'
 import LatestJobs from './LatestJobs'
 import Footer from './Footer'
+import FilterCard from './FilterCard'
+import Job from './Job'
 
 export {
   LatestJobs,
@@ -22,4 +24,6 @@ export {
   HeroSection,
   CategoryCarousel,
   Footer,
+  FilterCard,
+  Job,
 }
