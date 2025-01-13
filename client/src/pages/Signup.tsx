@@ -26,7 +26,7 @@ const Signup: React.FC = () => {
       // console.log(response)
 
       if (response.data.success) {
-        navigate('/')
+        navigate('/signin')
         toast.success(response.data.message || 'Account Created Successfully')
       }
     } catch (error: any) {

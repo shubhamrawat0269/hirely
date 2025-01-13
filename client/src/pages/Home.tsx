@@ -1,6 +1,7 @@
 import { Navbar, HeroSection, CategoryCarousel, LatestJobs, Footer } from '@/components/organisms'
 
 const Home = () => {
+  
   return (
     <div>
       <Navbar />

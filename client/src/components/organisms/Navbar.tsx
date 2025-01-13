@@ -1,7 +1,8 @@
+import { useSigninFormStore } from '@/store/auth.store'
 import { HireLogo, MenuItem, AuthButtons, UserAvatar } from '@/components/organisms'
 
 const Navbar = () => {
-  const user = false
+  const { userData } = useSigninFormStore()
 
   return (
     <div className="bg-white">
@@ -9,7 +10,7 @@ const Navbar = () => {
         <HireLogo />
         <div className="flex items-center gap-5">
           <MenuItem />
-          {!user ? <AuthButtons /> : <UserAvatar />}
+          {!userData ? <AuthButtons /> : <UserAvatar />}
         </div>
       </div>
     </div>
