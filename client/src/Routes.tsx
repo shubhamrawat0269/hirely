@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Signin, Signup, Home, Jobs, BrowseJobs } from './pages'
+import { Signin, Signup, Home, Jobs, BrowseJobs, Profile } from './pages'
 
 const appRoutes = createBrowserRouter([
   {
@@ -21,6 +21,10 @@ const appRoutes = createBrowserRouter([
   {
     path: '/browse',
     element: <BrowseJobs />,
+  },
+  {
+    path: '/profile',
+    element: <Profile />,
   },
 ])
 

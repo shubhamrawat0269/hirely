@@ -1,4 +1,5 @@
 import { Button } from '../ui/button'
+import { Link } from 'react-router-dom'
 import { LogOut, User2 } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -28,7 +29,9 @@ const UserAvatar = () => {
           <div className="flex flex-col text-gray-600">
             <div className="flex w-fit items-center gap-2 cursor-pointer">
               <User2 />
-              <Button variant="link">View Profile</Button>
+              <Button variant="link">
+                <Link to={`/profile`}>View Profile</Link>
+              </Button>
             </div>
             <div className="flex w-fit items-center gap-2 cursor-pointer">
               <LogOut />

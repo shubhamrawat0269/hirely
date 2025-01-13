@@ -11,6 +11,7 @@ import LatestJobs from './LatestJobs'
 import Footer from './Footer'
 import FilterCard from './FilterCard'
 import Job from './Job'
+import AppliedJobTable from './AppliedJobTable'
 
 export {
   LatestJobs,
@@ -26,4 +27,5 @@ export {
   Footer,
   FilterCard,
   Job,
+  AppliedJobTable,
 }
